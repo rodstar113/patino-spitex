@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Patino Spitex">
+  <meta name="theme-color" content="#1B5E83">
+  <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Leistungsnachweis%20Pati%C3%B1o%22%2C%22short_name%22%3A%22Patino%20Spitex%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F7F5F0%22%2C%22theme_color%22%3A%22%231B5E83%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20192%20192%27%3E%3Crect%20width%3D%27192%27%20height%3D%27192%27%20rx%3D%2740%27%20fill%3D%27%231B5E83%27%2F%3E%3Crect%20x%3D%2780%27%20y%3D%2732%27%20width%3D%2732%27%20height%3D%27128%27%20rx%3D%276%27%20fill%3D%27white%27%2F%3E%3Crect%20x%3D%2732%27%20y%3D%2780%27%20width%3D%27128%27%20height%3D%2732%27%20rx%3D%276%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231B5E83'/><rect x='75' y='30' width='30' height='120' rx='6' fill='white'/><rect x='30' y='75' width='120' height='30' rx='6' fill='white'/></svg>">
+  <title>Leistungsnachweis Patino</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&display=swap">
+  <style>
+:root {
+  --bg:        #F7F5F0;
+  --surface:   #FFFFFF;
+  --border:    #DDD9D3;
+  --border-lt: #ECEAE5;
+  --fg:        #1A1917;
+  --fg-soft:   #5C5855;
+  --fg-muted:  #9A9590;
+  --accent:    #1B5E83;
+  --accent-lt: #EBF3F8;
+  --accent-md: #4CA3CC;
+  --danger:    #C0392B;
+  --success:   #1E7B5A;
+  --warn-bg:   #FEF9EC;
+  --warn-bd:   #E8D584;
+  --vital-bg:  #F0F7FB;
+  --med-bg:    #F3EEF9;
+  font-variant-numeric: tabular-nums;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #18171A;
+    --surface:   #23222A;
+    --border:    #38363F;
+    --border-lt: #2E2D35;
+    --fg:        #EFEDE8;
+    --fg-soft:   #A09E9A;
+    --fg-muted:  #6B6965;
+    --accent:    #4CA3CC;
+    --accent-lt: #1B3244;
+    --accent-md: #7FC5E0;
+    --danger:    #E05C4C;
+    --success:   #3AAF80;
+    --warn-bg:   #2A2518;
+    --warn-bd:   #7A6A2E;
+    --vital-bg:  #182230;
+    --med-bg:    #1E1630;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #18171A;
+  --surface:   #23222A;
+  --border:    #38363F;
+  --border-lt: #2E2D35;
+  --fg:        #EFEDE8;
+  --fg-soft:   #A09E9A;
+  --fg-muted:  #6B6965;
+  --accent:    #4CA3CC;
+  --accent-lt: #1B3244;
+  --accent-md: #7FC5E0;
+  --danger:    #E05C4C;
+  --success:   #3AAF80;
+  --warn-bg:   #2A2518;
+  --warn-bd:   #7A6A2E;
+  --vital-bg:  #182230;
+  --med-bg:    #1E1630;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left:  max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+  min-height: 100%;
+}
+
+/* Header */
+.site-header {
+  background: var(--accent);
+  color: #fff;
+  padding-block: 12px;
+  padding-left:  max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 50;
+}
+.header-cross { position: relative; width: 28px; height: 28px; flex-shrink: 0; }
+.header-cross::before { content:''; position:absolute; left:11px; top:2px; width:6px; height:24px; background:rgba(255,255,255,0.75); border-radius:2px; }
+.header-cross::after  { content:''; position:absolute; left:2px;  top:11px; width:24px; height:6px;  background:rgba(255,255,255,0.75); border-radius:2px; }
+.header-text h1 { margin:0; font-family:'Source Serif 4',Georgia,serif; font-size:16px; font-weight:700; line-height:1.2; }
+.header-text p  { margin:0; font-size:10px; opacity:0.7; letter-spacing:0.02em; }
+.header-spacer { flex:1; }
+.header-month {
+  font-size:12px; font-weight:600;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  color:#fff; border-radius:6px; padding:4px 10px;
+  display:flex; align-items:center; gap:5px;
+}
+.header-month select { background:transparent; border:none; color:#fff; font-size:12px; font-weight:600; cursor:pointer; outline:none; appearance:none; }
+.header-month select option { color:var(--fg); background:var(--surface); }
+
+/* Nav */
+.nav {
+  display:flex; border-bottom:1px solid var(--border);
+  background:var(--surface);
+  padding-left:max(12px,env(safe-area-inset-left,0px));
+  overflow-x:auto; scrollbar-width:none;
+}
+.nav::-webkit-scrollbar { display:none; }
+.nav-btn {
+  padding:9px 13px; font-size:12.5px; font-weight:500;
+  color:var(--fg-soft); background:none; border:none;
+  border-bottom:2px solid transparent; cursor:pointer;
+  white-space:nowrap; transition:color .15s,border-color .15s;
+}
+.nav-btn:hover { color:var(--fg); }
+.nav-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+
+/* Pages */
+.page { display:none; }
+.page.active { display:block; }
+.container {
+  max-width:840px; margin:0 auto;
+  padding: 20px max(14px,env(safe-area-inset-left,0px));
+  padding-right:max(14px,env(safe-area-inset-right,0px));
+}
+
+/* Cards */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px; margin-bottom:14px; }
+.card-title {
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:15px; font-weight:600; color:var(--fg);
+  margin:0 0 14px; padding-bottom:10px;
+  border-bottom:1px solid var(--border-lt);
+  display:flex; align-items:center; gap:8px;
+}
+
+/* Forms */
+.form-grid { display:grid; gap:10px; }
+.g2 { grid-template-columns:1fr 1fr; }
+.g3 { grid-template-columns:1fr 1fr 1fr; }
+.g4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+@media(max-width:520px) { .g2,.g3,.g4 { grid-template-columns:1fr 1fr; } }
+@media(max-width:380px) { .g2,.g3,.g4 { grid-template-columns:1fr; } }
+.fg { display:flex; flex-direction:column; gap:3px; }
+.fg label { font-size:11px; font-weight:500; color:var(--fg-soft); }
+.fg input, .fg select, .fg textarea {
+  width:100%; padding:7px 9px; font-size:13px;
+  font-family:'Inter',sans-serif;
+  border:1px solid var(--border); border-radius:6px;
+  background:var(--bg); color:var(--fg);
+  transition:border-color .15s; outline:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-lt); }
+.fg textarea { resize:vertical; min-height:52px; }
+.fg input[readonly] { opacity:0.65; background:var(--border-lt); cursor:default; }
+.fg .unit-wrap { position:relative; }
+.fg .unit-wrap input { padding-right:40px; }
+.fg .unit { position:absolute; right:9px; top:50%; transform:translateY(-50%); font-size:11px; color:var(--fg-muted); pointer-events:none; }
+
+/* Vital value display */
+.vital-card {
+  background:var(--vital-bg);
+  border:1px solid var(--accent-lt);
+  border-radius:8px; padding:12px 14px;
+  display:flex; align-items:center; gap:10px;
+}
+.vital-icon { font-size:18px; flex-shrink:0; }
+.vital-label { font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--accent); margin-bottom:2px; }
+.vital-val { font-size:20px; font-weight:700; color:var(--fg); line-height:1.1; }
+.vital-val .unit { font-size:12px; font-weight:400; color:var(--fg-soft); margin-left:2px; }
+.vital-ref { font-size:10px; color:var(--fg-muted); margin-top:2px; }
+.vital-flag { font-size:11px; font-weight:600; padding:1px 6px; border-radius:8px; }
+.vital-flag.ok  { background:#D9F0E8; color:#1E7B5A; }
+.vital-flag.hi  { background:#FEE2E2; color:#C0392B; }
+.vital-flag.lo  { background:#FEF3C7; color:#92660A; }
+
+/* Med badge */
+.med-card {
+  background:var(--med-bg);
+  border:1px solid #D8C8F0;
+  border-radius:8px; padding:12px 14px;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .med-card{border-color:#3A2A58;}}
+:root[data-theme="dark"] .med-card{border-color:#3A2A58;}
+
+/* KLV chips */
+.klv-group { display:flex; gap:7px; flex-wrap:wrap; }
+.klv-chip {
+  display:flex; align-items:center; gap:5px;
+  padding:5px 11px; border:1.5px solid var(--border);
+  border-radius:20px; cursor:pointer; font-size:12px; font-weight:500;
+  color:var(--fg-soft); user-select:none; transition:all .15s;
+}
+.klv-chip:hover { border-color:var(--accent); color:var(--accent); }
+.klv-chip.sel-a { border-color:var(--accent); background:var(--accent-lt); color:var(--accent); }
+.klv-chip.sel-b { border-color:#1E7B5A; background:#EAF5F0; color:#1E7B5A; }
+.klv-chip.sel-c { border-color:#7A4BB3; background:#F2EAF9; color:#7A4BB3; }
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .klv-chip.sel-b{background:#0E2E22;} :root:not([data-theme="light"]) .klv-chip.sel-c{background:#1E1230;}}
+:root[data-theme="dark"] .klv-chip.sel-b{background:#0E2E22;} :root[data-theme="dark"] .klv-chip.sel-c{background:#1E1230;}
+.klv-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+/* Buttons */
+.btn {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:7px 14px; font-size:13px; font-weight:500;
+  border-radius:6px; border:none; cursor:pointer;
+  transition:opacity .15s,transform .1s;
+}
+.btn:hover { opacity:0.87; }
+.btn:active { transform:scale(0.98); }
+.btn-primary   { background:var(--accent); color:#fff; }
+.btn-secondary { background:var(--border-lt); color:var(--fg); border:1px solid var(--border); }
+.btn-danger    { background:transparent; color:var(--danger); border:1px solid var(--danger); }
+.btn-purple    { background:#7A4BB3; color:#fff; }
+.btn-sm { padding:4px 9px; font-size:11.5px; }
+.btn-row { display:flex; gap:7px; flex-wrap:wrap; margin-top:14px; }
+
+/* Tables */
+.tbl-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:12.5px; }
+th { text-align:left; font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--fg-muted); padding:7px 9px; border-bottom:1px solid var(--border); white-space:nowrap; }
+td { padding:8px 9px; border-bottom:1px solid var(--border-lt); color:var(--fg); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:var(--bg); }
+.td-m { color:var(--fg-soft); }
+.klv-badge { display:inline-block; padding:2px 6px; border-radius:10px; font-size:10.5px; font-weight:600; margin-right:2px; }
+.klv-badge.a { background:var(--accent-lt); color:var(--accent); }
+.klv-badge.b { background:#EAF5F0; color:#1E7B5A; }
+.klv-badge.c { background:#F2EAF9; color:#7A4BB3; }
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .klv-badge.b{background:#0E2E22;} :root:not([data-theme="light"]) .klv-badge.c{background:#1E1230;}}
+:root[data-theme="dark"] .klv-badge.b{background:#0E2E22;} :root[data-theme="dark"] .klv-badge.c{background:#1E1230;}
+
+/* Tiles */
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:18px; }
+.tile { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+.tile-label { font-size:10px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--fg-muted); margin-bottom:3px; }
+.tile-value { font-size:20px; font-weight:700; color:var(--fg); line-height:1.1; }
+.tile-unit { font-size:12px; font-weight:400; color:var(--fg-soft); margin-left:2px; }
+.tile-sub { font-size:10px; color:var(--fg-soft); margin-top:2px; }
+
+/* Client list */
+.client-list { display:flex; flex-direction:column; gap:7px; }
+.client-item { background:var(--bg); border:1px solid var(--border-lt); border-radius:8px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+.client-avatar { width:32px; height:32px; background:var(--accent-lt); color:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; }
+.client-info { flex:1; min-width:0; }
+.client-name { font-size:13px; font-weight:600; color:var(--fg); }
+.client-detail { font-size:11px; color:var(--fg-soft); margin-top:1px; }
+
+/* Section divider */
+.section-label {
+  font-size:10px; font-weight:600; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:8px;
+}
+.divider { height:1px; background:var(--border-lt); margin:16px 0; }
+
+/* Empty state */
+.empty { text-align:center; padding:32px 20px; color:var(--fg-muted); }
+.empty p { margin:0 0 5px; font-size:13px; }
+.empty-hint { font-size:11px; }
+
+/* Info banner */
+.info-banner {
+  background:var(--warn-bg); border:1px solid var(--warn-bd);
+  border-radius:8px; padding:10px 14px; font-size:12px;
+  color:var(--fg-soft); margin-bottom:14px;
+  display:flex; gap:8px; align-items:flex-start;
+}
+
+/* Signature */
+.sig-field { border:1.5px dashed var(--border); border-radius:6px; height:44px; display:flex; align-items:center; padding:0 10px; }
+.sig-field input { border:none; outline:none; background:transparent; width:100%; font-size:14px; font-style:italic; color:var(--fg); font-family:Georgia,serif; }
+
+/* Vital grid display */
+.vital-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-bottom:14px; }
+
+/* Med pill */
+.med-pill { display:inline-flex; align-items:center; gap:5px; background:var(--med-bg); border:1px solid #D8C8F0; border-radius:12px; padding:3px 10px; font-size:11.5px; font-weight:500; color:#5A3A8A; margin:2px; }
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .med-pill{border-color:#3A2A58;color:#B08AE0;background:var(--med-bg);}}
+:root[data-theme="dark"] .med-pill{border-color:#3A2A58;color:#B08AE0;background:var(--med-bg);}
+
+/* Toast */
+.toast {
+  position:fixed; bottom:20px; right:max(16px,env(safe-area-inset-right,16px));
+  background:var(--fg); color:var(--bg);
+  padding:9px 16px; border-radius:8px; font-size:13px; font-weight:500;
+  opacity:0; transform:translateY(8px);
+  transition:opacity .25s,transform .25s; pointer-events:none; z-index:999;
+}
+.toast.show { opacity:1; transform:translateY(0); }
+
+/* Collapsible section */
+details summary { cursor:pointer; list-style:none; display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--accent); padding:6px 0; }
+details summary::marker, details summary::-webkit-details-marker { display:none; }
+details summary .chevron { transition:transform .2s; font-style:normal; }
+details[open] summary .chevron { transform:rotate(90deg); }
+  </style>
+</head>
+<body>
+
+<!-- INSTALL BANNER -->
+<div id="install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--accent);color:#fff;padding:12px 16px;z-index:1000;align-items:center;gap:10px;justify-content:space-between;">
+  <span>📱 App installieren – Zum Startbildschirm hinzufügen</span>
+  <div style="display:flex;gap:8px;">
+    <button id="btn-install" style="background:#fff;color:var(--accent);border:none;border-radius:6px;padding:6px 14px;font-weight:600;cursor:pointer;">Installieren</button>
+    <button id="btn-install-close" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);border-radius:6px;padding:6px 10px;cursor:pointer;">×</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-cross" aria-hidden="true"></div>
+  <div class="header-text">
+    <h1>Leistungsnachweis</h1>
+    <p>A. R. Pati&#241;o Meave · Pati&#241;o Spitex</p>
+  </div>
+  <div class="header-spacer"></div>
+  <div class="header-month">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><rect x="1" y="2" width="10" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 1v2M8 1v2M1 5h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    <select id="monthSelect" aria-label="Monat w&#228;hlen"></select>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Bereiche">
+  <button class="nav-btn active" onclick="showPage('erfassen',this)">&#10133; Erfassen</button>
+  <button class="nav-btn" onclick="showPage('liste',this)">&#128203; Leistungen</button>
+  <button class="nav-btn" onclick="showPage('vitalwerte',this)">&#10084;&#65039; Vitalwerte</button>
+  <button class="nav-btn" onclick="showPage('medikamente',this)">&#128138; Medikamente</button>
+  <button class="nav-btn" onclick="showPage('wunden',this)">&#129657; Wunden</button>
+  <button class="nav-btn" onclick="showPage('uebersicht',this)">&#128202; &#220;bersicht</button>
+  <button class="nav-btn" onclick="showPage('klienten',this)">&#128100; Klienten</button>
+</nav>
+
+
+<!-- PAGE: ERFASSEN -->
+<main>
+<section id="page-erfassen" class="page active">
+  <div class="container">
+    <div class="info-banner">
+      <span>&#128712;&#65039;</span>
+      <span>Leistungen werden lokal gespeichert. Daten bleiben auf diesem Ger&#228;t.</span>
+    </div>
+    <div class="card">
+      <h2 class="card-title">&#10133; Neue Leistung erfassen</h2>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="f-datum">Datum</label>
+          <input type="date" id="f-datum">
+        </div>
+        <div class="fg">
+          <label for="f-klient">Klient / Klientin</label>
+          <select id="f-klient"><option value="">-- Bitte w&#228;hlen --</option></select>
+        </div>
+        <div class="fg">
+          <label for="f-von">Von</label>
+          <input type="time" id="f-von">
+        </div>
+        <div class="fg">
+          <label for="f-bis">Bis</label>
+          <input type="time" id="f-bis">
+        </div>
+      </div>
+      <div class="fg" style="margin-top:10px;">
+        <label>Dauer</label>
+        <input type="text" id="f-dauer" readonly placeholder="Wird automatisch berechnet">
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">KLV-Tarife</div>
+      <div class="klv-group" id="klv-group">
+        <div class="klv-chip" id="chip-a" onclick="toggleKlv('a')"><span class="klv-dot"></span> Grundpflege (a) CHF 76.90</div>
+        <div class="klv-chip" id="chip-b" onclick="toggleKlv('b')"><span class="klv-dot"></span> Behandlungspflege (b) CHF 63.00</div>
+        <div class="klv-chip" id="chip-c" onclick="toggleKlv('c')"><span class="klv-dot"></span> Abkl&#228;rung/Beratung (c) CHF 52.60</div>
+      </div>
+
+      <div class="divider"></div>
+      <details>
+        <summary><span class="chevron">&#9656;</span> Vitalwerte (optional)</summary>
+        <div class="form-grid g2" style="margin-top:10px;">
+          <div class="fg">
+            <label for="fe-rr-sys">Blutdruck systolisch</label>
+            <div class="unit-wrap"><input type="number" id="fe-rr-sys" placeholder="120"><span class="unit">mmHg</span></div>
+          </div>
+          <div class="fg">
+            <label for="fe-rr-dia">Blutdruck diastolisch</label>
+            <div class="unit-wrap"><input type="number" id="fe-rr-dia" placeholder="80"><span class="unit">mmHg</span></div>
+          </div>
+          <div class="fg">
+            <label for="fe-puls">Puls</label>
+            <div class="unit-wrap"><input type="number" id="fe-puls" placeholder="72"><span class="unit">/min</span></div>
+          </div>
+          <div class="fg">
+            <label for="fe-spo2">SpO2</label>
+            <div class="unit-wrap"><input type="number" id="fe-spo2" placeholder="98"><span class="unit">%</span></div>
+          </div>
+          <div class="fg">
+            <label for="fe-temp">Temperatur</label>
+            <div class="unit-wrap"><input type="number" id="fe-temp" step="0.1" placeholder="36.8"><span class="unit">&#176;C</span></div>
+          </div>
+          <div class="fg">
+            <label for="fe-bz">Blutzucker</label>
+            <div class="unit-wrap"><input type="number" id="fe-bz" step="0.1" placeholder="5.5"><span class="unit">mmol/l</span></div>
+          </div>
+          <div class="fg">
+            <label for="fe-bz-zeitpunkt">BZ-Zeitpunkt</label>
+            <select id="fe-bz-zeitpunkt">
+              <option value="">-- w&#228;hlen --</option>
+              <option>N&#252;chtern</option>
+              <option>Pr&#228;prandial</option>
+              <option>Postprandial (1h)</option>
+              <option>Postprandial (2h)</option>
+              <option>Bedtime</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label for="fe-gewicht">Gewicht</label>
+            <div class="unit-wrap"><input type="number" id="fe-gewicht" step="0.1" placeholder="70.0"><span class="unit">kg</span></div>
+          </div>
+        </div>
+      </details>
+
+      <div class="divider"></div>
+      <details>
+        <summary><span class="chevron">&#9656;</span> Medikamente (optional)</summary>
+        <div style="margin-top:10px;">
+          <div class="form-grid g2">
+            <div class="fg">
+              <label for="fe-med-name">Medikament</label>
+              <input type="text" id="fe-med-name" placeholder="Name des Medikaments">
+            </div>
+            <div class="fg">
+              <label for="fe-med-dosis">Dosis</label>
+              <input type="text" id="fe-med-dosis" placeholder="z.B. 1 Tabl., 5ml">
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="addMedEntry()">&#10133; Medikament hinzuf&#252;gen</button>
+          <div id="fe-med-list" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:5px;"></div>
+        </div>
+      </details>
+
+      <div class="divider"></div>
+      <div class="fg">
+        <label for="f-beschreibung">Beschreibung / Massnahmen</label>
+        <textarea id="f-beschreibung" rows="3" placeholder="Durchgef&#252;hrte Massnahmen, Beobachtungen..."></textarea>
+      </div>
+      <div class="fg" style="margin-top:10px;">
+        <label for="f-besonderheiten">Besonderheiten / Verlauf</label>
+        <textarea id="f-besonderheiten" rows="2" placeholder="Besonderheiten, Ver&#228;nderungen, Meldungen..."></textarea>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Unterschrift</div>
+      <div class="sig-field">
+        <input type="text" id="f-sig" placeholder="Unterschrift (Name eingeben)">
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveEntry()">&#10003; Speichern</button>
+        <button class="btn btn-secondary" onclick="clearForm()">&#8635; Zur&#252;cksetzen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE: LEISTUNGEN -->
+<section id="page-liste" class="page">
+  <div class="container">
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+        <h2 class="card-title" style="margin:0;border:none;padding:0;">&#128203; Leistungsnachweis</h2>
+        <button class="btn btn-secondary btn-sm" onclick="exportCSV()">&#11015;&#65039; CSV Export</button>
+      </div>
+      <div class="tbl-wrap" id="liste-table-wrap">
+        <div class="empty"><p>Noch keine Eintr&#228;ge vorhanden.</p><p class="empty-hint">Erfassen Sie die erste Leistung im Tab &#8222;Erfassen&#8220;.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE: VITALWERTE -->
+<section id="page-vitalwerte" class="page">
+  <div class="container">
+    <div class="card">
+      <h2 class="card-title">&#10084;&#65039; Vitalwerte erfassen</h2>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="v-datum">Datum</label>
+          <input type="date" id="v-datum">
+        </div>
+        <div class="fg">
+          <label for="v-klient">Klient / Klientin</label>
+          <select id="v-klient"><option value="">-- Bitte w&#228;hlen --</option></select>
+        </div>
+        <div class="fg">
+          <label for="v-uhrzeit">Uhrzeit</label>
+          <input type="time" id="v-uhrzeit">
+        </div>
+        <div class="fg">
+          <label for="v-kontext">Kontext</label>
+          <select id="v-kontext">
+            <option value="">-- optional --</option>
+            <option>Morgen (n&#252;chtern)</option>
+            <option>Vor dem Essen</option>
+            <option>Nach dem Essen</option>
+            <option>Abend</option>
+            <option>Notfall</option>
+            <option>Routinekontrolle</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Blutdruck &amp; Kreislauf</div>
+      <div class="form-grid g4">
+        <div class="fg">
+          <label for="v-rr-sys">RR systolisch</label>
+          <div class="unit-wrap"><input type="number" id="v-rr-sys" placeholder="120"><span class="unit">mmHg</span></div>
+        </div>
+        <div class="fg">
+          <label for="v-rr-dia">RR diastolisch</label>
+          <div class="unit-wrap"><input type="number" id="v-rr-dia" placeholder="80"><span class="unit">mmHg</span></div>
+        </div>
+        <div class="fg">
+          <label for="v-puls">Puls</label>
+          <div class="unit-wrap"><input type="number" id="v-puls" placeholder="72"><span class="unit">/min</span></div>
+        </div>
+        <div class="fg">
+          <label for="v-spo2">SpO2</label>
+          <div class="unit-wrap"><input type="number" id="v-spo2" placeholder="98"><span class="unit">%</span></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">K&#246;rpertemperatur &amp; Gewicht</div>
+      <div class="form-grid g3">
+        <div class="fg">
+          <label for="v-temp">Temperatur</label>
+          <div class="unit-wrap"><input type="number" id="v-temp" step="0.1" placeholder="36.8"><span class="unit">&#176;C</span></div>
+        </div>
+        <div class="fg">
+          <label for="v-gewicht">Gewicht</label>
+          <div class="unit-wrap"><input type="number" id="v-gewicht" step="0.1" placeholder="70.0"><span class="unit">kg</span></div>
+        </div>
+        <div class="fg">
+          <label for="v-atem">Atemfrequenz</label>
+          <div class="unit-wrap"><input type="number" id="v-atem" placeholder="16"><span class="unit">/min</span></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Blutzucker</div>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="v-bz">Blutzucker</label>
+          <div class="unit-wrap"><input type="number" id="v-bz" step="0.1" placeholder="5.5"><span class="unit">mmol/l</span></div>
+        </div>
+        <div class="fg">
+          <label for="v-bz-zeitpunkt">Messzeitpunkt</label>
+          <select id="v-bz-zeitpunkt">
+            <option value="">-- w&#228;hlen --</option>
+            <option>N&#252;chtern</option>
+            <option>Pr&#228;prandial</option>
+            <option>Postprandial (1h)</option>
+            <option>Postprandial (2h)</option>
+            <option>Bedtime</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="v-insulin">Insulin verabreicht</label>
+          <input type="text" id="v-insulin" placeholder="z.B. 10 IE Novorapid">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Schmerzen (NRS 0-10)</div>
+      <div class="fg">
+        <label for="v-nrs">Schmerzintensit&#228;t: <span id="v-nrs-val">0</span>/10</label>
+        <input type="range" id="v-nrs" min="0" max="10" value="0" oninput="document.getElementById('v-nrs-val').textContent=this.value" style="width:100%;accent-color:var(--accent);">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--fg-muted);"><span>Kein Schmerz</span><span>Mittelm&#228;ssig</span><span>Schlimmster Schmerz</span></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Ausscheidung</div>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="v-bristol">Stuhlgang – Bristol-Skala</label>
+          <select id="v-bristol">
+            <option value="">-- kein Eintrag --</option>
+            <option value="1">Typ 1 – Einzelne harte Kn&#246;llchen</option>
+            <option value="2">Typ 2 – Wurstf&#246;rmig, kn&#246;llig</option>
+            <option value="3">Typ 3 – Wurstf&#246;rmig, Risse</option>
+            <option value="4">Typ 4 – Glatt, weich (normal)</option>
+            <option value="5">Typ 5 – Weiche Klumpen</option>
+            <option value="6">Typ 6 – Breiig, unf&#246;rmig</option>
+            <option value="7">Typ 7 – W&#228;ssrig, fl&#252;ssig</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="v-stuhl-farbe">Farbe</label>
+          <select id="v-stuhl-farbe">
+            <option value="">-- k.A. --</option>
+            <option>Braun (normal)</option>
+            <option>Hellbraun</option>
+            <option>Gelb</option>
+            <option>Gr&#252;n</option>
+            <option>Schwarz (Teerstuhl)</option>
+            <option>Rot (Blutbeimengung)</option>
+            <option>Grau/Lehm</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="v-stuhl-haeufigkeit">H&#228;ufigkeit</label>
+          <select id="v-stuhl-haeufigkeit">
+            <option value="">-- k.A. --</option>
+            <option>1x</option><option>2x</option><option>3x</option>
+            <option>Mehr als 3x</option>
+            <option>Kein Stuhlgang</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="v-stuhl-besond">Besonderheiten Stuhl</label>
+          <input type="text" id="v-stuhl-besond" placeholder="Schmerzen, Inkontinenz, ...">
+        </div>
+        <div class="fg">
+          <label for="v-urin">Urin</label>
+          <select id="v-urin">
+            <option value="">-- k.A. --</option>
+            <option>Klar, hell</option>
+            <option>Gelb, normal</option>
+            <option>Dunkelgelb</option>
+            <option>Orangefarben</option>
+            <option>Tr&#252;b</option>
+            <option>R&#246;tlich (Blutbeimengung)</option>
+            <option>Stark riechend</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="v-datum-ausscheidung">Datum letzte Ausscheidung</label>
+          <input type="date" id="v-datum-ausscheidung">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Ereignis</div>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="v-ereignis-datum">Datum Ereignis</label>
+          <input type="date" id="v-ereignis-datum">
+        </div>
+        <div class="fg">
+          <label for="v-ereignis-uhrzeit">Uhrzeit Ereignis</label>
+          <input type="time" id="v-ereignis-uhrzeit">
+        </div>
+        <div class="fg">
+          <label for="v-ereignis-art">Art des Ereignisses</label>
+          <select id="v-ereignis-art">
+            <option value="">-- kein Ereignis --</option>
+            <option>Sturz</option>
+            <option>Erbrechen</option>
+            <option>&#220;belkeit</option>
+            <option>Verwirrtheit / Desorientierung</option>
+            <option>Ohnmacht / Bewusstlosigkeit</option>
+            <option>Atemnot</option>
+            <option>Brustschmerzen</option>
+            <option>Krampfanfall</option>
+            <option>Verhaltens&#228;nderung</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="v-ereignis-massnahmen">Sofortmassnahmen</label>
+          <input type="text" id="v-ereignis-massnahmen" placeholder="Erste Hilfe, Arzt informiert, ...">
+        </div>
+        <div class="fg">
+          <label for="v-ereignis-folge">Folgemassnahmen</label>
+          <input type="text" id="v-ereignis-folge" placeholder="Weiteres Vorgehen, &#220;berweisung, ...">
+        </div>
+        <div class="fg">
+          <label for="v-ereignis-beschr">Beschreibung</label>
+          <textarea id="v-ereignis-beschr" rows="2" placeholder="Genaue Beschreibung des Ereignisses..."></textarea>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="fg">
+        <label for="v-bemerkung">Bemerkungen</label>
+        <textarea id="v-bemerkung" rows="2" placeholder="Zus&#228;tzliche Beobachtungen..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveVital()">&#10003; Speichern</button>
+        <button class="btn btn-secondary" onclick="clearVitalForm()">&#8635; Zur&#252;cksetzen</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">&#128202; Vitalverlauf</h2>
+      <div class="form-grid g2" style="margin-bottom:12px;">
+        <div class="fg">
+          <label for="v-filter-klient">Klient filtern</label>
+          <select id="v-filter-klient"><option value="">Alle Klienten</option></select>
+        </div>
+      </div>
+      <div class="tbl-wrap" id="vital-table-wrap">
+        <div class="empty"><p>Noch keine Vitalwerte erfasst.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE: MEDIKAMENTE -->
+<section id="page-medikamente" class="page">
+  <div class="container">
+    <div class="card">
+      <h2 class="card-title">&#128138; Medikamentenplan</h2>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="mp-klient">Klient / Klientin</label>
+          <select id="mp-klient"><option value="">-- Bitte w&#228;hlen --</option></select>
+        </div>
+        <div class="fg">
+          <label for="mp-name">Medikament</label>
+          <input type="text" id="mp-name" placeholder="Name des Medikaments">
+        </div>
+        <div class="fg">
+          <label for="mp-form">Darreichungsform</label>
+          <select id="mp-form">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Tablette</option><option>Kapsel</option><option>Tropfen</option>
+            <option>L&#246;sung</option><option>Injektion</option><option>Pflaster</option>
+            <option>Salbe</option><option>Suppositorium</option><option>Inhalation</option><option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="mp-indikation">Indikation</label>
+          <input type="text" id="mp-indikation" placeholder="Wof&#252;r?">
+        </div>
+        <div class="fg">
+          <label for="mp-arzt">Verordnender Arzt</label>
+          <input type="text" id="mp-arzt" placeholder="Dr. med. ...">
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="section-label">Dosierungsschema</div>
+      <div class="form-grid g4">
+        <div class="fg"><label for="mp-mor">Morgen</label><input type="text" id="mp-mor" placeholder="0"></div>
+        <div class="fg"><label for="mp-mit">Mittag</label><input type="text" id="mp-mit" placeholder="0"></div>
+        <div class="fg"><label for="mp-abe">Abend</label><input type="text" id="mp-abe" placeholder="0"></div>
+        <div class="fg"><label for="mp-nac">Nacht</label><input type="text" id="mp-nac" placeholder="0"></div>
+      </div>
+      <div class="fg" style="margin-top:10px;">
+        <label for="mp-hinweise">Hinweise / Besonderheiten</label>
+        <textarea id="mp-hinweise" rows="2" placeholder="Mit Wasser, n&#252;chtern, nach dem Essen, ..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveMedPlan()">&#10003; Medikament speichern</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">&#128203; Medikamentenpl&#228;ne</h2>
+      <div class="fg" style="margin-bottom:12px;">
+        <label for="mp-filter-klient">Klient filtern</label>
+        <select id="mp-filter-klient"><option value="">Alle Klienten</option></select>
+      </div>
+      <div id="med-plan-list">
+        <div class="empty"><p>Noch keine Medikamentenpl&#228;ne angelegt.</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">&#10003; Medikamentengabe protokollieren</h2>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="mg-klient">Klient / Klientin</label>
+          <select id="mg-klient"><option value="">-- Bitte w&#228;hlen --</option></select>
+        </div>
+        <div class="fg">
+          <label for="mg-datum">Datum</label>
+          <input type="date" id="mg-datum">
+        </div>
+        <div class="fg">
+          <label for="mg-zeit">Uhrzeit</label>
+          <input type="time" id="mg-zeit">
+        </div>
+        <div class="fg">
+          <label for="mg-med">Medikament</label>
+          <input type="text" id="mg-med" placeholder="Name">
+        </div>
+        <div class="fg">
+          <label for="mg-dosis">Dosis</label>
+          <input type="text" id="mg-dosis" placeholder="z.B. 1 Tabl.">
+        </div>
+        <div class="fg">
+          <label for="mg-bemerk">Bemerkung</label>
+          <input type="text" id="mg-bemerk" placeholder="optional">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-purple" onclick="saveMedGabe()">&#10003; Gabe protokollieren</button>
+      </div>
+      <div class="divider"></div>
+      <div id="gabe-protokoll">
+        <div class="empty"><p>Noch keine Gaben protokolliert.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE: WUNDEN -->
+<section id="page-wunden" class="page">
+  <div class="container">
+    <div class="card">
+      <h2 class="card-title">&#129657; Wunddokumentation</h2>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="w-datum">Datum</label>
+          <input type="date" id="w-datum">
+        </div>
+        <div class="fg">
+          <label for="w-klient">Klient / Klientin</label>
+          <select id="w-klient"><option value="">-- Bitte w&#228;hlen --</option></select>
+        </div>
+        <div class="fg">
+          <label for="w-uhrzeit">Uhrzeit</label>
+          <input type="time" id="w-uhrzeit">
+        </div>
+        <div class="fg">
+          <label for="w-lokalisation">Lokalisation</label>
+          <input type="text" id="w-lokalisation" placeholder="z.B. Steissbein, Kn&#246;chel links">
+        </div>
+        <div class="fg">
+          <label for="w-wundart">Wundart</label>
+          <select id="w-wundart">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Dekubitus</option><option>Ulcus cruris venosum</option>
+            <option>Ulcus cruris arteriosum</option><option>Diabetisches Fussulkus</option>
+            <option>Traumatische Wunde</option><option>Chirurgische Wunde</option>
+            <option>Verbrennungswunde</option><option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="w-dekubitus">Dekubitus-Kategorie</label>
+          <select id="w-dekubitus">
+            <option value="">-- k.A. --</option>
+            <option>Kategorie I</option><option>Kategorie II</option>
+            <option>Kategorie III</option><option>Kategorie IV</option>
+            <option>DTI (Deep Tissue Injury)</option>
+            <option>Nicht klassifizierbar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Wundgr&#246;sse</div>
+      <div class="form-grid g4">
+        <div class="fg"><label for="w-laenge">L&#228;nge</label><div class="unit-wrap"><input type="number" id="w-laenge" step="0.1" placeholder="0.0"><span class="unit">cm</span></div></div>
+        <div class="fg"><label for="w-breite">Breite</label><div class="unit-wrap"><input type="number" id="w-breite" step="0.1" placeholder="0.0"><span class="unit">cm</span></div></div>
+        <div class="fg"><label for="w-tiefe">Tiefe</label><div class="unit-wrap"><input type="number" id="w-tiefe" step="0.1" placeholder="0.0"><span class="unit">cm</span></div></div>
+        <div class="fg"><label for="w-tunneling">Tunneling</label><div class="unit-wrap"><input type="number" id="w-tunneling" step="0.1" placeholder="0.0"><span class="unit">cm</span></div></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Wundbeurteilung</div>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="w-wundbett">Wundbett</label>
+          <select id="w-wundbett">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Granulationsgewebe (rot)</option><option>Fibrinbel&#228;ge (gelb)</option>
+            <option>Nekrose (schwarz)</option><option>Gemischt</option><option>Epithelisierung</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="w-wundrand">Wundrand</label>
+          <select id="w-wundrand">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Glatt, regelm&#228;ssig</option><option>Unterminiert</option>
+            <option>Mazeriert</option><option>Kallus&#246;s</option><option>Er&#246;tet</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="w-umgebungshaut">Umgebungshaut</label>
+          <select id="w-umgebungshaut">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Unauffall&#228;lig</option><option>Gesch&#228;digt / spr&#246;de</option>
+            <option>Er&#246;tet</option><option>Mazeriert</option>
+            <option>Induriert</option><option>&#214;dematisch</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="w-exsudat">Exsudat</label>
+          <select id="w-exsudat">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Kein</option><option>Serum&#246;s (klar)</option>
+            <option>H&#228;morragisch (blutig)</option><option>Seroh&#228;morragisch</option>
+            <option>Eitrig (purulent)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Schmerzen (NRS 0-10)</div>
+      <div class="fg">
+        <label for="w-nrs">Wundschmerz: <span id="w-nrs-val">0</span>/10</label>
+        <input type="range" id="w-nrs" min="0" max="10" value="0" oninput="document.getElementById('w-nrs-val').textContent=this.value" style="width:100%;accent-color:var(--accent);">
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Verlauf &amp; Behandlung</div>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="w-verlauf">Wundverlauf</label>
+          <select id="w-verlauf">
+            <option value="">-- w&#228;hlen --</option>
+            <option>Verbessert</option><option>Unver&#228;ndert</option>
+            <option>Verschlechtert</option><option>Erstbeurteilung</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="w-reinigung">Wundreinigung</label>
+          <input type="text" id="w-reinigung" placeholder="z.B. NaCl 0.9%, Prontosan">
+        </div>
+        <div class="fg">
+          <label for="w-verband">Verband / Wundauflage</label>
+          <input type="text" id="w-verband" placeholder="z.B. Mepilex, Aquacel">
+        </div>
+        <div class="fg">
+          <label for="w-naechster-wv">N&#228;chster Verbandwechsel</label>
+          <input type="date" id="w-naechster-wv">
+        </div>
+        <div class="fg">
+          <label for="w-arzt-info">Arzt informiert</label>
+          <select id="w-arzt-info">
+            <option value="">Nein</option>
+            <option>Ja, telefonisch</option>
+            <option>Ja, schriftlich</option>
+            <option>Ja, Hausbesuch</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveWunde()">&#10003; Speichern</button>
+        <button class="btn btn-secondary" onclick="clearWundeForm()">&#8635; Zur&#252;cksetzen</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">&#128202; Wundverlauf</h2>
+      <div class="tbl-wrap" id="wunden-table-wrap">
+        <div class="empty"><p>Noch keine Wunddokumentation vorhanden.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE: UEBERSICHT -->
+<section id="page-uebersicht" class="page">
+  <div class="container">
+    <div class="card">
+      <h2 class="card-title">&#128202; Monats&#252;bersicht</h2>
+      <div class="tiles" id="tiles-container"></div>
+      <div id="uebersicht-per-client"></div>
+      <div class="divider"></div>
+      <div id="uebersicht-klv"></div>
+      <p style="font-size:11px;color:var(--fg-muted);margin-top:10px;">* KLV-Tarife 2024: a = CHF 76.90/h · b = CHF 63.00/h · c = CHF 52.60/h</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE: KLIENTEN -->
+<section id="page-klienten" class="page">
+  <div class="container">
+    <div class="card">
+      <h2 class="card-title">&#128100; Klient erfassen</h2>
+      <div class="form-grid g2">
+        <div class="fg">
+          <label for="k-vorname">Vorname</label>
+          <input type="text" id="k-vorname" placeholder="Vorname">
+        </div>
+        <div class="fg">
+          <label for="k-nachname">Nachname</label>
+          <input type="text" id="k-nachname" placeholder="Nachname">
+        </div>
+        <div class="fg">
+          <label for="k-gebdat">Geburtsdatum</label>
+          <input type="date" id="k-gebdat">
+        </div>
+        <div class="fg">
+          <label for="k-ahv">AHV-Nummer</label>
+          <input type="text" id="k-ahv" placeholder="756.XXXX.XXXX.XX">
+        </div>
+        <div class="fg">
+          <label for="k-krankenkasse">Krankenkasse</label>
+          <input type="text" id="k-krankenkasse" placeholder="Name der Krankenkasse">
+        </div>
+        <div class="fg">
+          <label for="k-versichertennr">Versichertennummer</label>
+          <input type="text" id="k-versichertennr" placeholder="Versichertennummer">
+        </div>
+      </div>
+      <div class="fg" style="margin-top:10px;">
+        <label for="k-adresse">Adresse</label>
+        <textarea id="k-adresse" rows="2" placeholder="Strasse, PLZ Ort"></textarea>
+      </div>
+      <div class="fg" style="margin-top:10px;">
+        <label for="k-arzt">Behandelnder Arzt</label>
+        <input type="text" id="k-arzt" placeholder="Dr. med. ...">
+      </div>
+      <div class="fg" style="margin-top:10px;">
+        <label for="k-notizen">Notizen / Pflegehinweise</label>
+        <textarea id="k-notizen" rows="3" placeholder="Allergien, Besonderheiten, Kontakte..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveClient()">&#10003; Klient speichern</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">&#128101; Klientenliste</h2>
+      <div id="klient-list-container">
+        <div class="empty"><p>Noch keine Klienten angelegt.</p><p class="empty-hint">F&#252;gen Sie Ihren ersten Klienten oben hinzu.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let entries  = [];
+let clients  = [];
+let vitals   = [];
+let medPlans = [];
+let medGaben = [];
+let wunden   = [];
+const TARIFE = { a: 76.90, b: 63.00, c: 52.60 };
+
+// ============================================================
+// PERSISTENCE
+// ============================================================
+function saveAll() {
+  try {
+    localStorage.setItem('pn_entries',  JSON.stringify(entries));
+    localStorage.setItem('pn_clients',  JSON.stringify(clients));
+    localStorage.setItem('pn_vitals',   JSON.stringify(vitals));
+    localStorage.setItem('pn_medplans', JSON.stringify(medPlans));
+    localStorage.setItem('pn_medgaben', JSON.stringify(medGaben));
+    localStorage.setItem('pn_wunden',   JSON.stringify(wunden));
+  } catch(e) { console.warn('localStorage save error', e); }
+}
+function loadAll() {
+  try {
+    entries  = JSON.parse(localStorage.getItem('pn_entries')  || '[]');
+    clients  = JSON.parse(localStorage.getItem('pn_clients')  || '[]');
+    vitals   = JSON.parse(localStorage.getItem('pn_vitals')   || '[]');
+    medPlans = JSON.parse(localStorage.getItem('pn_medplans') || '[]');
+    medGaben = JSON.parse(localStorage.getItem('pn_medgaben') || '[]');
+    wunden   = JSON.parse(localStorage.getItem('pn_wunden')   || '[]');
+  } catch(e) {
+    entries = []; clients = []; vitals = [];
+    medPlans = []; medGaben = []; wunden = [];
+  }
+}
+
+// ============================================================
+// MONTH SELECT
+// ============================================================
+function initMonthSelect() {
+  const sel = document.getElementById('monthSelect');
+  const now = new Date();
+  sel.innerHTML = '';
+  for (let i = 0; i < 13; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const val = d.toISOString().slice(0,7);
+    const lbl = d.toLocaleDateString('de-CH',{month:'long',year:'numeric'});
+    const opt = document.createElement('option');
+    opt.value = val; opt.textContent = lbl;
+    if (i === 0) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  sel.addEventListener('change', refreshActivePage);
+}
+function currentMonth() {
+  return document.getElementById('monthSelect').value;
+}
+function refreshMonthTitles() {}
+
+// ============================================================
+// FILTERING
+// ============================================================
+function filteredEntries() {
+  const m = currentMonth();
+  return entries.filter(e => e.datum && e.datum.startsWith(m));
+}
+function filteredVitals() {
+  const m = currentMonth();
+  return vitals.filter(v => v.datum && v.datum.startsWith(m));
+}
+function filteredMedGaben() {
+  const m = currentMonth();
+  return medGaben.filter(g => g.datum && g.datum.startsWith(m));
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  refreshActivePage();
+}
+function refreshActivePage() {
+  const active = document.querySelector('.page.active');
+  if (!active) return;
+  const id = active.id;
+  if (id === 'page-liste')        renderListe();
+  else if (id === 'page-vitalwerte') renderVitals();
+  else if (id === 'page-medikamente') { renderMedPlans(); renderMedGaben(); }
+  else if (id === 'page-wunden')  renderWunden();
+  else if (id === 'page-uebersicht') renderUebersicht();
+  else if (id === 'page-klienten') renderKlienten();
+}
+
+// ============================================================
+// KLV CHIPS
+// ============================================================
+let selectedKlv = [];
+function toggleKlv(type) {
+  const chip = document.getElementById('chip-' + type);
+  if (selectedKlv.includes(type)) {
+    selectedKlv = selectedKlv.filter(t => t !== type);
+    chip.className = 'klv-chip';
+  } else {
+    selectedKlv.push(type);
+    chip.classList.add('sel-' + type);
+  }
+}
+
+// ============================================================
+// DURATION CALC
+// ============================================================
+function timeToMin(t) {
+  if (!t) return 0;
+  const [h,m] = t.split(':').map(Number);
+  return h*60+m;
+}
+function calcDuration() {
+  const von = document.getElementById('f-von').value;
+  const bis = document.getElementById('f-bis').value;
+  if (von && bis) {
+    let diff = timeToMin(bis) - timeToMin(von);
+    if (diff < 0) diff += 24*60;
+    const h = Math.floor(diff/60), m = diff%60;
+    document.getElementById('f-dauer').value = h + 'h ' + String(m).padStart(2,'0') + 'min';
+    return diff;
+  }
+  return 0;
+}
+document.getElementById('f-von').addEventListener('input', calcDuration);
+document.getElementById('f-bis').addEventListener('input', calcDuration);
+
+// ============================================================
+// ENTRY MED LIST (quick add in Erfassen)
+// ============================================================
+let entryMeds = [];
+function addMedEntry() {
+  const name  = document.getElementById('fe-med-name').value.trim();
+  const dosis = document.getElementById('fe-med-dosis').value.trim();
+  if (!name) { toast('Bitte Medikamentname eingeben.'); return; }
+  entryMeds.push({name, dosis});
+  renderEntryMeds();
+  document.getElementById('fe-med-name').value  = '';
+  document.getElementById('fe-med-dosis').value = '';
+}
+function removeEntryMed(i) {
+  entryMeds.splice(i,1); renderEntryMeds();
+}
+function renderEntryMeds() {
+  const wrap = document.getElementById('fe-med-list');
+  wrap.innerHTML = entryMeds.map((m,i) =>
+    `<span class="med-pill">${esc(m.name)}${m.dosis?' ('+esc(m.dosis)+')':''} <button onclick="removeEntryMed(${i})" style="background:none;border:none;cursor:pointer;color:inherit;padding:0 0 0 4px;">&#10005;</button></span>`
+  ).join('');
+}
+
+// ============================================================
+// SAVE ENTRY
+// ============================================================
+function saveEntry() {
+  const datum  = document.getElementById('f-datum').value;
+  const klient = document.getElementById('f-klient').value;
+  const von    = document.getElementById('f-von').value;
+  const bis    = document.getElementById('f-bis').value;
+  if (!datum || !klient || !von || !bis) {
+    toast('Bitte Datum, Klient, Von und Bis ausf&#252;llen.'); return;
+  }
+  const minDiff = calcDuration();
+  const entry = {
+    id: Date.now(),
+    datum, klient, von, bis,
+    dauer: minDiff,
+    klv: [...selectedKlv],
+    beschreibung: document.getElementById('f-beschreibung').value,
+    besonderheiten: document.getElementById('f-besonderheiten').value,
+    sig: document.getElementById('f-sig').value,
+    meds: [...entryMeds],
+    vitals: {
+      rrSys: document.getElementById('fe-rr-sys').value,
+      rrDia: document.getElementById('fe-rr-dia').value,
+      puls:  document.getElementById('fe-puls').value,
+      spo2:  document.getElementById('fe-spo2').value,
+      temp:  document.getElementById('fe-temp').value,
+      bz:    document.getElementById('fe-bz').value,
+      bzZeit:document.getElementById('fe-bz-zeitpunkt').value,
+      gewicht:document.getElementById('fe-gewicht').value,
+    }
+  };
+  entries.push(entry);
+  saveAll();
+  clearForm();
+  toast('Leistung gespeichert &#10003;');
+}
+function clearForm() {
+  ['f-datum','f-von','f-bis','f-dauer','f-beschreibung','f-besonderheiten','f-sig',
+   'fe-rr-sys','fe-rr-dia','fe-puls','fe-spo2','fe-temp','fe-bz','fe-gewicht'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-klient').value = '';
+  document.getElementById('fe-bz-zeitpunkt').value = '';
+  selectedKlv = [];
+  ['a','b','c'].forEach(t => { document.getElementById('chip-'+t).className = 'klv-chip'; });
+  entryMeds = []; renderEntryMeds();
+  document.getElementById('f-datum').value = new Date().toISOString().slice(0,10);
+}
+
+// ============================================================
+// SAVE VITAL
+// ============================================================
+function saveVital() {
+  const datum  = document.getElementById('v-datum').value;
+  const klient = document.getElementById('v-klient').value;
+  if (!datum || !klient) { toast('Datum und Klient ben&#246;tigt.'); return; }
+  const vital = {
+    id: Date.now(), datum, klient,
+    uhrzeit: document.getElementById('v-uhrzeit').value,
+    kontext:  document.getElementById('v-kontext').value,
+    rrSys:   document.getElementById('v-rr-sys').value,
+    rrDia:   document.getElementById('v-rr-dia').value,
+    puls:    document.getElementById('v-puls').value,
+    spo2:    document.getElementById('v-spo2').value,
+    temp:    document.getElementById('v-temp').value,
+    gewicht: document.getElementById('v-gewicht').value,
+    atem:    document.getElementById('v-atem').value,
+    bz:      document.getElementById('v-bz').value,
+    bzZeit:  document.getElementById('v-bz-zeitpunkt').value,
+    insulin: document.getElementById('v-insulin').value,
+    nrs:     document.getElementById('v-nrs').value,
+    bristol: document.getElementById('v-bristol').value,
+    stuhlFarbe:    document.getElementById('v-stuhl-farbe').value,
+    stuhlHaeuf:    document.getElementById('v-stuhl-haeufigkeit').value,
+    stuhlBesond:   document.getElementById('v-stuhl-besond').value,
+    urin:          document.getElementById('v-urin').value,
+    datumAussch:   document.getElementById('v-datum-ausscheidung').value,
+    ereignisDatum: document.getElementById('v-ereignis-datum').value,
+    ereignisUhrzeit: document.getElementById('v-ereignis-uhrzeit').value,
+    ereignisArt:   document.getElementById('v-ereignis-art').value,
+    ereignisM:     document.getElementById('v-ereignis-massnahmen').value,
+    ereignisFollge:document.getElementById('v-ereignis-folge').value,
+    ereignisBeschr:document.getElementById('v-ereignis-beschr').value,
+    bemerkung:     document.getElementById('v-bemerkung').value,
+  };
+  vitals.push(vital);
+  saveAll();
+  clearVitalForm();
+  toast('Vitalwerte gespeichert &#10003;');
+}
+function clearVitalForm() {
+  ['v-datum','v-uhrzeit','v-rr-sys','v-rr-dia','v-puls','v-spo2','v-temp','v-gewicht',
+   'v-atem','v-bz','v-insulin','v-stuhl-besond','v-datum-ausscheidung',
+   'v-ereignis-datum','v-ereignis-uhrzeit','v-ereignis-massnahmen','v-ereignis-folge',
+   'v-ereignis-beschr','v-bemerkung'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value='';
+  });
+  ['v-klient','v-kontext','v-bz-zeitpunkt','v-bristol','v-stuhl-farbe',
+   'v-stuhl-haeufigkeit','v-urin','v-ereignis-art'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value='';
+  });
+  document.getElementById('v-nrs').value = 0;
+  document.getElementById('v-nrs-val').textContent = '0';
+  document.getElementById('v-datum').value = new Date().toISOString().slice(0,10);
+  document.getElementById('v-uhrzeit').value = new Date().toTimeString().slice(0,5);
+}
+
+// ============================================================
+// SAVE WUNDE
+// ============================================================
+function saveWunde() {
+  const datum  = document.getElementById('w-datum').value;
+  const klient = document.getElementById('w-klient').value;
+  if (!datum || !klient) { toast('Datum und Klient ben&#246;tigt.'); return; }
+  const w = {
+    id: Date.now(), datum, klient,
+    uhrzeit:    document.getElementById('w-uhrzeit').value,
+    lokalisation:document.getElementById('w-lokalisation').value,
+    wundart:    document.getElementById('w-wundart').value,
+    dekubitus:  document.getElementById('w-dekubitus').value,
+    laenge:     document.getElementById('w-laenge').value,
+    breite:     document.getElementById('w-breite').value,
+    tiefe:      document.getElementById('w-tiefe').value,
+    tunneling:  document.getElementById('w-tunneling').value,
+    wundbett:   document.getElementById('w-wundbett').value,
+    wundrand:   document.getElementById('w-wundrand').value,
+    umgebung:   document.getElementById('w-umgebungshaut').value,
+    exsudat:    document.getElementById('w-exsudat').value,
+    nrs:        document.getElementById('w-nrs').value,
+    verlauf:    document.getElementById('w-verlauf').value,
+    reinigung:  document.getElementById('w-reinigung').value,
+    verband:    document.getElementById('w-verband').value,
+    naechsterWV:document.getElementById('w-naechster-wv').value,
+    arztInfo:   document.getElementById('w-arzt-info').value,
+  };
+  wunden.push(w);
+  saveAll();
+  clearWundeForm();
+  toast('Wunddokumentation gespeichert &#10003;');
+}
+function clearWundeForm() {
+  ['w-datum','w-uhrzeit','w-lokalisation','w-laenge','w-breite','w-tiefe','w-tunneling',
+   'w-reinigung','w-verband','w-naechster-wv'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value='';
+  });
+  ['w-klient','w-wundart','w-dekubitus','w-wundbett','w-wundrand','w-umgebungshaut',
+   'w-exsudat','w-verlauf','w-arzt-info'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value='';
+  });
+  document.getElementById('w-nrs').value = 0;
+  document.getElementById('w-nrs-val').textContent = '0';
+  document.getElementById('w-datum').value = new Date().toISOString().slice(0,10);
+}
+
+// ============================================================
+// SAVE MEDPLAN
+// ============================================================
+function saveMedPlan() {
+  const klient = document.getElementById('mp-klient').value;
+  const name   = document.getElementById('mp-name').value.trim();
+  if (!klient || !name) { toast('Klient und Medikamentname ben&#246;tigt.'); return; }
+  medPlans.push({
+    id: Date.now(), klient, name,
+    form:      document.getElementById('mp-form').value,
+    mor:       document.getElementById('mp-mor').value,
+    mit:       document.getElementById('mp-mit').value,
+    abe:       document.getElementById('mp-abe').value,
+    nac:       document.getElementById('mp-nac').value,
+    indikation:document.getElementById('mp-indikation').value,
+    arzt:      document.getElementById('mp-arzt').value,
+    hinweise:  document.getElementById('mp-hinweise').value,
+  });
+  saveAll();
+  ['mp-klient','mp-form','mp-indikation','mp-arzt','mp-hinweise'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value='';
+  });
+  ['mp-name','mp-mor','mp-mit','mp-abe','mp-nac'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value='';
+  });
+  toast('Medikament gespeichert &#10003;');
+  renderMedPlans();
+}
+
+// ============================================================
+// SAVE MED GABE
+// ============================================================
+function saveMedGabe() {
+  const klient = document.getElementById('mg-klient').value;
+  const med    = document.getElementById('mg-med').value.trim();
+  if (!klient || !med) { toast('Klient und Medikament ben&#246;tigt.'); return; }
+  medGaben.push({
+    id: Date.now(), klient,
+    datum:  document.getElementById('mg-datum').value,
+    zeit:   document.getElementById('mg-zeit').value,
+    med, dosis:  document.getElementById('mg-dosis').value,
+    bemerk: document.getElementById('mg-bemerk').value,
+  });
+  saveAll();
+  ['mg-med','mg-dosis','mg-bemerk'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value='';
+  });
+  toast('Gabe protokolliert &#10003;');
+  renderMedGaben();
+}
+
+// ============================================================
+// SAVE CLIENT
+// ============================================================
+function saveClient() {
+  const vn = document.getElementById('k-vorname').value.trim();
+  const nn = document.getElementById('k-nachname').value.trim();
+  if (!vn || !nn) { toast('Vor- und Nachname ben&#246;tigt.'); return; }
+  clients.push({
+    id: Date.now(),
+    vorname: vn, nachname: nn,
+    gebdat:     document.getElementById('k-gebdat').value,
+    ahv:        document.getElementById('k-ahv').value,
+    krankenkasse:document.getElementById('k-krankenkasse').value,
+    versichertennr:document.getElementById('k-versichertennr').value,
+    adresse:    document.getElementById('k-adresse').value,
+    arzt:       document.getElementById('k-arzt').value,
+    notizen:    document.getElementById('k-notizen').value,
+  });
+  saveAll();
+  ['k-vorname','k-nachname','k-gebdat','k-ahv','k-krankenkasse',
+   'k-versichertennr','k-adresse','k-arzt','k-notizen'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value='';
+  });
+  populateAllKlientSelects();
+  toast('Klient gespeichert &#10003;');
+  renderKlienten();
+}
+
+// ============================================================
+// POPULATE SELECTS
+// ============================================================
+function populateSelect(id, extra) {
+  const sel = document.getElementById(id);
+  if (!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">${extra||'-- Bitte w&#228;hlen --'}</option>`;
+  clients.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.vorname + ' ' + c.nachname;
+    sel.appendChild(opt);
+  });
+  if (cur) sel.value = cur;
+}
+function populateAllKlientSelects() {
+  ['f-klient','v-klient','v-filter-klient','w-klient','mp-klient','mp-filter-klient',
+   'mg-klient'].forEach(id => populateSelect(id, id.includes('filter') ? 'Alle Klienten' : undefined));
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function clientName(id) {
+  const c = clients.find(x => String(x.id) === String(id));
+  return c ? c.vorname + ' ' + c.nachname : id || '?';
+}
+function fmtDate(d) {
+  if (!d) return '-';
+  try {
+    const [y,m,day] = d.split('-');
+    return `${day}.${m}.${y}`;
+  } catch { return d; }
+}
+function fmtDuration(min) {
+  if (!min) return '-';
+  const h = Math.floor(min/60), m = min%60;
+  return h + 'h ' + String(m).padStart(2,'0') + 'min';
+}
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ============================================================
+// RENDER LISTE
+// ============================================================
+function renderListe() {
+  const wrap = document.getElementById('liste-table-wrap');
+  const fe = filteredEntries();
+  if (!fe.length) {
+    wrap.innerHTML = '<div class="empty"><p>Keine Eintr&#228;ge f&#252;r diesen Monat.</p></div>'; return;
+  }
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>Datum</th><th>Klient</th><th>Zeit</th><th>Dauer</th>
+      <th>KLV</th><th>Beschreibung</th><th></th>
+    </tr></thead>
+    <tbody>
+    ${fe.sort((a,b)=>b.datum.localeCompare(a.datum)).map(e => `<tr>
+      <td class="td-m">${fmtDate(e.datum)}</td>
+      <td>${esc(clientName(e.klient))}</td>
+      <td class="td-m">${e.von||'-'}–${e.bis||'-'}</td>
+      <td class="td-m">${fmtDuration(e.dauer)}</td>
+      <td>${(e.klv||[]).map(k=>`<span class="klv-badge ${k}">${k.toUpperCase()}</span>`).join('')}</td>
+      <td>${esc(e.beschreibung||'').slice(0,60)}${(e.beschreibung||'').length>60?'…':''}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteEntry(${e.id})">&#128465;</button></td>
+    </tr>`).join('')}
+    </tbody></table>`;
+}
+function deleteEntry(id) {
+  if (!confirm('Eintrag l&#246;schen?')) return;
+  entries = entries.filter(e => e.id !== id);
+  saveAll(); renderListe(); toast('Eintrag gel&#246;scht.');
+}
+
+// ============================================================
+// RENDER VITALS
+// ============================================================
+function vitalFlag(val, lo, hi) {
+  if (!val) return '';
+  const v = parseFloat(val);
+  if (v < lo) return '<span class="vital-flag lo">Tief</span>';
+  if (v > hi) return '<span class="vital-flag hi">Hoch</span>';
+  return '<span class="vital-flag ok">OK</span>';
+}
+function renderVitals() {
+  const wrap = document.getElementById('vital-table-wrap');
+  const fk = document.getElementById('v-filter-klient').value;
+  let fv = filteredVitals();
+  if (fk) fv = fv.filter(v => String(v.klient) === String(fk));
+  if (!fv.length) {
+    wrap.innerHTML = '<div class="empty"><p>Keine Vitalwerte f&#252;r diesen Monat.</p></div>'; return;
+  }
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>Datum</th><th>Klient</th><th>RR</th><th>Puls</th>
+      <th>SpO2</th><th>Temp</th><th>BZ</th><th>Gewicht</th>
+      <th>NRS</th><th>Ereignis</th><th></th>
+    </tr></thead>
+    <tbody>
+    ${fv.sort((a,b)=>b.datum.localeCompare(a.datum)).map(v => `<tr>
+      <td class="td-m">${fmtDate(v.datum)} ${v.uhrzeit||''}</td>
+      <td>${esc(clientName(v.klient))}</td>
+      <td>${v.rrSys&&v.rrDia?v.rrSys+'/'+v.rrDia+' mmHg ':'-'} ${vitalFlag(v.rrSys,90,140)}</td>
+      <td>${v.puls||'-'} ${vitalFlag(v.puls,50,100)}</td>
+      <td>${v.spo2||'-'} ${v.spo2?vitalFlag(v.spo2,95,100):''}</td>
+      <td>${v.temp||'-'} ${v.temp?vitalFlag(v.temp,36,37.5):''}</td>
+      <td>${v.bz||'-'}${v.bz?' mmol/l':''} ${v.bz?vitalFlag(v.bz,3.9,7.8):''}</td>
+      <td>${v.gewicht||'-'}${v.gewicht?' kg':''}</td>
+      <td>${v.nrs||'0'}/10</td>
+      <td>${v.ereignisArt?'&#9888;&#65039; '+esc(v.ereignisArt):'-'}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteVital(${v.id})">&#128465;</button></td>
+    </tr>`).join('')}
+    </tbody></table>`;
+}
+function deleteVital(id) {
+  if (!confirm('Eintrag l&#246;schen?')) return;
+  vitals = vitals.filter(v => v.id !== id);
+  saveAll(); renderVitals(); toast('Vitalwert gel&#246;scht.');
+}
+
+// ============================================================
+// RENDER MEDPLANS
+// ============================================================
+function renderMedPlans() {
+  const wrap = document.getElementById('med-plan-list');
+  const fk = document.getElementById('mp-filter-klient').value;
+  let mp = fk ? medPlans.filter(m => String(m.klient) === String(fk)) : medPlans;
+  if (!mp.length) {
+    wrap.innerHTML = '<div class="empty"><p>Keine Medikamentenpl&#228;ne vorhanden.</p></div>'; return;
+  }
+  wrap.innerHTML = mp.map(m => `
+    <div class="med-card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+        <div>
+          <strong>${esc(m.name)}</strong>${m.form?' · <span style="color:var(--fg-soft)">${esc(m.form)}</span>':''}
+          <div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">${esc(clientName(m.klient))}</div>
+          <div style="margin-top:6px;font-size:12px;">
+            <span class="med-pill">&#127758; ${esc(m.mor||'0')}</span>
+            <span class="med-pill">&#9728;&#65039; ${esc(m.mit||'0')}</span>
+            <span class="med-pill">&#127751; ${esc(m.abe||'0')}</span>
+            <span class="med-pill">&#127762; ${esc(m.nac||'0')}</span>
+          </div>
+          ${m.indikation?`<div style="font-size:11px;color:var(--fg-soft);margin-top:4px;">Indikation: ${esc(m.indikation)}</div>`:''}
+          ${m.hinweise?`<div style="font-size:11px;color:var(--fg-muted);margin-top:2px;">${esc(m.hinweise)}</div>`:''}
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteMedPlan(${m.id})">&#128465;</button>
+      </div>
+    </div>`).join('');
+}
+function deleteMedPlan(id) {
+  if (!confirm('Medikament l&#246;schen?')) return;
+  medPlans = medPlans.filter(m => m.id !== id);
+  saveAll(); renderMedPlans(); toast('Medikament gel&#246;scht.');
+}
+function renderMedGaben() {
+  const wrap = document.getElementById('gabe-protokoll');
+  if (!medGaben.length) {
+    wrap.innerHTML = '<div class="empty"><p>Noch keine Gaben protokolliert.</p></div>'; return;
+  }
+  const sorted = [...medGaben].sort((a,b)=>b.id-a.id);
+  wrap.innerHTML = `<table>
+    <thead><tr><th>Datum</th><th>Zeit</th><th>Klient</th><th>Medikament</th><th>Dosis</th><th>Bemerkung</th><th></th></tr></thead>
+    <tbody>${sorted.map(g=>`<tr>
+      <td>${fmtDate(g.datum)}</td><td>${g.zeit||'-'}</td>
+      <td>${esc(clientName(g.klient))}</td>
+      <td>${esc(g.med)}</td><td>${esc(g.dosis||'-')}</td>
+      <td>${esc(g.bemerk||'-')}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteMedGabe(${g.id})">&#128465;</button></td>
+    </tr>`).join('')}</tbody></table>`;
+}
+function deleteMedGabe(id) {
+  if (!confirm('Gabe l&#246;schen?')) return;
+  medGaben = medGaben.filter(g => g.id !== id);
+  saveAll(); renderMedGaben(); toast('Gabe gel&#246;scht.');
+}
+
+// ============================================================
+// RENDER WUNDEN
+// ============================================================
+function renderWunden() {
+  const wrap = document.getElementById('wunden-table-wrap');
+  if (!wunden.length) {
+    wrap.innerHTML = '<div class="empty"><p>Keine Wundeintr&#228;ge vorhanden.</p></div>'; return;
+  }
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th>Datum</th><th>Klient</th><th>Lokalisation</th>
+      <th>Gr&#246;sse</th><th>Verlauf</th><th>Verband</th><th></th>
+    </tr></thead>
+    <tbody>${wunden.sort((a,b)=>b.datum.localeCompare(a.datum)).map(w=>`<tr>
+      <td>${fmtDate(w.datum)}</td>
+      <td>${esc(clientName(w.klient))}</td>
+      <td>${esc(w.lokalisation||'-')} ${w.wundart?'<br><span style="font-size:10px;color:var(--fg-muted)">'+esc(w.wundart)+'</span>':''}</td>
+      <td>${w.laenge||'-'}×${w.breite||'-'}×${w.tiefe||'-'} cm</td>
+      <td>${w.verlauf||'-'}</td>
+      <td>${esc(w.verband||'-')}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteWunde(${w.id})">&#128465;</button></td>
+    </tr>`).join('')}</tbody></table>`;
+}
+function deleteWunde(id) {
+  if (!confirm('Wundeintrag l&#246;schen?')) return;
+  wunden = wunden.filter(w => w.id !== id);
+  saveAll(); renderWunden(); toast('Wundeintrag gel&#246;scht.');
+}
+
+// ============================================================
+// RENDER UEBERSICHT
+// ============================================================
+function renderUebersicht() {
+  const fe = filteredEntries();
+  const totalMin = fe.reduce((s,e) => s+(e.dauer||0), 0);
+  const totalH = totalMin/60;
+
+  const tiles = document.getElementById('tiles-container');
+  tiles.innerHTML = `
+    <div class="tile"><div class="tile-label">Eins&#228;tze</div><div class="tile-value">${fe.length}</div></div>
+    <div class="tile"><div class="tile-label">Stunden total</div><div class="tile-value">${totalH.toFixed(1)}<span class="tile-unit">h</span></div></div>
+    <div class="tile"><div class="tile-label">Klienten</div><div class="tile-value">${new Set(fe.map(e=>e.klient)).size}</div></div>
+  `;
+
+  // Per client
+  const byClient = {};
+  fe.forEach(e => {
+    if (!byClient[e.klient]) byClient[e.klient] = {min:0, entries:0, klv:{}};
+    byClient[e.klient].min += (e.dauer||0);
+    byClient[e.klient].entries++;
+    (e.klv||[]).forEach(k => { byClient[e.klient].klv[k] = (byClient[e.klient].klv[k]||0) + (e.dauer||0); });
+  });
+
+  const pc = document.getElementById('uebersicht-per-client');
+  pc.innerHTML = Object.keys(byClient).length ? `
+    <div class="section-label" style="margin-top:14px;">Pro Klient</div>
+    <table>
+      <thead><tr><th>Klient</th><th>Eins&#228;tze</th><th>Stunden</th><th>Tarife</th></tr></thead>
+      <tbody>${Object.entries(byClient).map(([id,v])=>`<tr>
+        <td>${esc(clientName(id))}</td>
+        <td>${v.entries}</td>
+        <td>${(v.min/60).toFixed(2)} h</td>
+        <td>${Object.entries(v.klv).map(([k,m])=>`<span class="klv-badge ${k}">${k.toUpperCase()} ${(m/60).toFixed(1)}h</span>`).join(' ')}</td>
+      </tr>`).join('')}</tbody>
+    </table>` : '';
+
+  // KLV summary
+  const klvTot = {a:0,b:0,c:0};
+  fe.forEach(e => (e.klv||[]).forEach(k => { klvTot[k] += (e.dauer||0); }));
+  const klvDiv = document.getElementById('uebersicht-klv');
+  const klvRows = Object.entries(klvTot).filter(([,m])=>m>0);
+  klvDiv.innerHTML = klvRows.length ? `
+    <div class="section-label" style="margin-top:14px;">KLV-Tarifabrechnung *</div>
+    <table>
+      <thead><tr><th>Tarif</th><th>Stunden</th><th>CHF/h</th><th>Betrag</th></tr></thead>
+      <tbody>${klvRows.map(([k,m])=>`<tr>
+        <td><span class="klv-badge ${k}">${k.toUpperCase()}</span></td>
+        <td>${(m/60).toFixed(2)}</td>
+        <td>${TARIFE[k].toFixed(2)}</td>
+        <td><strong>CHF ${(m/60*TARIFE[k]).toFixed(2)}</strong></td>
+      </tr>`).join('')}
+      <tr style="border-top:2px solid var(--border);">
+        <td colspan="3"><strong>Total</strong></td>
+        <td><strong>CHF ${klvRows.reduce((s,[k,m])=>s+m/60*TARIFE[k],0).toFixed(2)}</strong></td>
+      </tr>
+      </tbody>
+    </table>` : '<div class="empty" style="padding:12px 0;"><p>Keine KLV-Tarife f&#252;r diesen Monat.</p></div>';
+}
+
+// ============================================================
+// RENDER KLIENTEN
+// ============================================================
+function renderKlienten() {
+  const wrap = document.getElementById('klient-list-container');
+  if (!clients.length) {
+    wrap.innerHTML = '<div class="empty"><p>Noch keine Klienten angelegt.</p></div>'; return;
+  }
+  wrap.innerHTML = `<div class="client-list">${clients.map(c => `
+    <div class="client-item">
+      <div class="client-avatar">${esc(c.vorname[0]||'?')}${esc(c.nachname[0]||'')}</div>
+      <div class="client-info">
+        <div class="client-name">${esc(c.vorname)} ${esc(c.nachname)}</div>
+        <div class="client-detail">${c.gebdat?'* '+fmtDate(c.gebdat)+' &nbsp;':''}${c.krankenkasse?esc(c.krankenkasse):''}</div>
+        ${c.arzt?`<div class="client-detail">${esc(c.arzt)}</div>`:''}
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteClient(${c.id})">&#128465;</button>
+    </div>`).join('')}</div>`;
+}
+function deleteClient(id) {
+  if (!confirm('Klient und alle zugeh&#246;rigen Eintr&#228;ge l&#246;schen?')) return;
+  clients  = clients.filter(c => c.id !== id);
+  entries  = entries.filter(e => String(e.klient) !== String(id));
+  vitals   = vitals.filter(v => String(v.klient) !== String(id));
+  medPlans = medPlans.filter(m => String(m.klient) !== String(id));
+  medGaben = medGaben.filter(g => String(g.klient) !== String(id));
+  wunden   = wunden.filter(w => String(w.klient) !== String(id));
+  saveAll();
+  populateAllKlientSelects();
+  renderKlienten();
+  toast('Klient gel&#246;scht.');
+}
+
+// ============================================================
+// CSV EXPORT
+// ============================================================
+function exportCSV() {
+  const fe = filteredEntries();
+  if (!fe.length) { toast('Keine Eintr&#228;ge zum Exportieren.'); return; }
+  const header = ['Datum','Klient','Von','Bis','Dauer (min)','KLV','Beschreibung','Besonderheiten','Unterschrift'];
+  const rows = fe.sort((a,b)=>a.datum.localeCompare(b.datum)).map(e => [
+    e.datum, clientName(e.klient), e.von, e.bis, e.dauer,
+    (e.klv||[]).join('+'), e.beschreibung, e.besonderheiten, e.sig
+  ].map(v => '"'+String(v||'').replace(/"/g,'""')+'"'));
+  const csv = [header.map(h=>`"${h}"`).join(','), ...rows.map(r=>r.join(','))].join('\n');
+  const blob = new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = 'Leistungsnachweis_'+currentMonth()+'.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('CSV exportiert &#10003;');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadAll();
+initMonthSelect();
+populateAllKlientSelects();
+document.getElementById('f-datum').value    = new Date().toISOString().slice(0,10);
+document.getElementById('v-datum').value    = new Date().toISOString().slice(0,10);
+document.getElementById('v-uhrzeit').value  = new Date().toTimeString().slice(0,5);
+document.getElementById('w-datum').value    = new Date().toISOString().slice(0,10);
+const now = new Date();
+document.getElementById('mg-datum').value = now.toISOString().slice(0,10);
+document.getElementById('mg-zeit').value  = now.toTimeString().slice(0,5);
+document.getElementById('mp-filter-klient').addEventListener('change', renderMedPlans);
+document.getElementById('v-filter-klient').addEventListener('change', renderVitals);
+
+// ============================================================
+// PWA: SERVICE WORKER (Chrome / Android)
+// ============================================================
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE = 'patino-spitex-v1';
+    self.addEventListener('install', e => {
+      self.skipWaiting();
+    });
+    self.addEventListener('activate', e => {
+      e.waitUntil(clients.claim());
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        caches.match(e.request).then(r => r || fetch(e.request).catch(()=>new Response('Offline',{status:503})))
+      );
+    });
+  `;
+  try {
+    const blob = new Blob([swCode], {type:'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+  } catch(e) {}
+}
+
+// ============================================================
+// PWA: INSTALL BANNER (Chrome / Android)
+// ============================================================
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').style.display = 'flex';
+});
+document.getElementById('btn-install').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') document.getElementById('install-banner').style.display = 'none';
+  deferredPrompt = null;
+});
+document.getElementById('btn-install-close').addEventListener('click', () => {
+  document.getElementById('install-banner').style.display = 'none';
+});
+
+</script>
+</body>
+</html>
